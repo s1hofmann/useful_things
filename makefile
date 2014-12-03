@@ -17,7 +17,7 @@ TARGET = #Give me a cool name!
 # File names
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
 INCLUDES = $(SOURCES:.cpp=.h)
-OBJECTS = $(SOURCES:$(SOURCEDIR)/*.cpp=$(BINDIR)/*.o)
+OBJECTS = $(SOURCES:$(SOURCEDIR)/%.cpp=$(BINDIR)/%.o)
 
 # Main target
 $(TARGET): $(OBJECTS)
