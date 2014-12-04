@@ -24,10 +24,11 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(PKG) $(OBJECTS) -o $(TARGET)
 
 # To obtain object files
-$(OBJECTS): $(SOURCES)
+$(BINDIR)/%.o: $(SOURCEDIR)/%.cpp
 	@mkdir -p $(@D)
 	$(CC) $(PKG) -c $(CC_FLAGS) $< -o $@
 
 # To remove generated files
+.PHONY: clean
 clean:
 	rm -f $(TARGET) $(OBJECTS)
