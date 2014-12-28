@@ -1,0 +1,6 @@
+-R
+--extra=+q
+--fields=+miaS
+--file-scope=yes
+--c++-kinds=+cefglmnpstuvx
+--language-force=C++
