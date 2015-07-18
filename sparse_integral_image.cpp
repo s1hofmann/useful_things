@@ -4,6 +4,21 @@
 #include <set>
 #include "opencv2/imgproc/imgproc.hpp"
 
+bool equals(const cv::Mat1f &mat1, const cv::Mat1f &mat2)
+{
+    if(mat1.rows != mat2.rows || mat1.cols != mat2.cols) {
+        return false;
+    }
+
+    cv::Scalar s = cv::sum(mat1 - mat2);
+
+    if(s[0] == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 int main(void) {
     std::unordered_map<int, std::unordered_map<int, cv::Mat1f>> map;
 
@@ -71,12 +86,17 @@ int main(void) {
 
             cv::Scalar s = cv::sum(tmp - lastLeft);
 
-            if(s[0] == 0) {
+            if(equals(tmp, lastLeft)) {
                 mapping.at<cv::Mat1f*>(r, c) = mapping.at<cv::Mat1f*>(r, c - 1);
             } else {
-                std::cout << "Value changes at: " << r << " " << c << std::endl;
-                map[r][c] = tmp;
-                mapping.at<cv::Mat1f*>(r, c) = &map[r][c];
+                if(equals(tmp, lastTop)) {
+                    std::cout << "Value changed, top entry equal" << std::endl;
+                    mapping.at<cv::Mat1f*>(r, c) = mapping.at<cv::Mat1f*>(r - 1, c);
+                } else {
+                    std::cout << "Value changed, new value" << std::endl;
+                    map[r][c] = tmp;
+                    mapping.at<cv::Mat1f*>(r, c) = &map[r][c];
+                }
             }
         }
     }
