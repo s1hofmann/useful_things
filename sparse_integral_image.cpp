@@ -130,7 +130,10 @@ int main(void) {
         std::cout << std::endl;
     }
 
-    std::cout << (*mapping.at<cv::Mat1f*>(4, 4) - *mapping.at<cv::Mat1f*>(0, 4) - *mapping.at<cv::Mat1f*>(4, 0) + *mapping.at<cv::Mat1f*>(0, 0)) << std::endl;
+    cv::Mat1f result;
+    result = (*mapping.at<cv::Mat1f*>(4, 4) - *mapping.at<cv::Mat1f*>(0, 4) - *mapping.at<cv::Mat1f*>(4, 0) + *mapping.at<cv::Mat1f*>(0, 0));
+
+    std::cout << result << std::endl;
 
     return 0;
 }
